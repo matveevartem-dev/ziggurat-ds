@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace App.Api.Processor.ExtractorService;
+
+public class AbbreviationConverter
+{
+    public static Dictionary<int, string> _map;
+
+    // Единый источник данных для обоих методов
+    private readonly Dictionary<int, string> _abbreviations = new Dictionary<int, string>
+    {
+        { 1, "г." },
+        { 2, "р." },
+        { 3, "м." },
+        { 4, "гор." },
+        { 5, "руб." },
+        { 6, "кв." }
+    };
+
+    /// <summary>
+    /// Заменяет сокращения на теги {id}
+    /// </summary>
+    public string Encode(string input)
+    {
+        if (string.IsNullOrEmpty(input)) return input;
+
+        // Создаем инвертированный словарь для быстрого поиска ID по тексту
+        var reverseMap = _abbreviations.ToDictionary(x => x.Value.ToLower(), x => x.Key);
+
+        // Формируем паттерн из всех доступных сокращений (экранируем точку)
+        string pattern = @"\b(" + string.Join("|", reverseMap.Keys.Select(k => Regex.Escape(k))) + @")";
+
+        return Regex.Replace(input, pattern, m =>
+        {
+            string key = m.Value.ToLower();
+            return reverseMap.ContainsKey(key) ? $"{{{reverseMap[key]}}}" : m.Value;
+        }, RegexOptions.IgnoreCase);
+    }
+
+    /// <summary>
+    /// Заменяет теги {id} обратно на сокращения
+    /// </summary>
+    public string Decode(string input)
+    {
+        if (string.IsNullOrEmpty(input)) return input;
+
+        string pattern = @"\{(\d+)\}";
+
+        return Regex.Replace(input, pattern, m =>
+        {
+            // Извлекаем число из группы захвата {1}
+            if (int.TryParse(m.Groups[1].Value, out int id) && _abbreviations.ContainsKey(id))
+            {
+                return _abbreviations[id];
+            }
+            return m.Value;
+        });
+    }
+}

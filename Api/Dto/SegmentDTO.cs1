@@ -1,0 +1,9 @@
+﻿namespace App.Api.Dto
+{
+    public class SegmentDTO
+    {
+        public string Content { get; set; }
+        public int StartPos { get; set; } // Позиция в оригинальном тексте
+        public int EndPos { get; set; }   // Позиция в оригинальном тексте
+    }
+}

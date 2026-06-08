@@ -1,0 +1,4 @@
+name: ziggurat-document-service
+
+include:
+  - path: ../../docker-compose.yml

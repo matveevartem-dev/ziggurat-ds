@@ -1,0 +1,81 @@
+﻿using App.Api.Processor;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using App.Api.Dto;
+
+namespace App.Api.Service;
+
+public class DocumentSegmenter
+{
+    private readonly AbbreviationProcessor _abbrProcessor;
+
+    private static readonly string[] AllSeparators = {
+        "!", "?", "...", ";", "。", "：", "\n", " - ", " — ", ":", "."
+    };
+
+    public DocumentSegmenter(AbbreviationProcessor abbrProcessor)
+    {
+        _abbrProcessor = abbrProcessor;
+    }
+
+    public List<SegmentDTO> GetSegments(string rawText)
+    {
+        var result = new List<SegmentDTO>();
+        if (string.IsNullOrWhiteSpace(rawText)) return result;
+
+        // 1. Кодируем текст, чтобы скрыть точки в сокращениях
+        // ВАЖНО: Нам нужно знать, где точки РЕАЛЬНО являются концом предложения
+        string protectedText = _abbrProcessor.Encode(rawText);
+
+        // 2. Создаем паттерн для поиска разделителей
+        string pattern = "(" + string.Join("|", AllSeparators.Select(Regex.Escape)) + ")";
+
+        // Находим все разделители в "защищенном" тексте
+        var matches = Regex.Matches(protectedText, pattern);
+
+        int lastProtectedPos = 0;
+        int lastOriginalPos = 0;
+
+        foreach (Match match in matches)
+        {
+            // Длина сегмента в защищенном тексте
+            int protectedLength = (match.Index + match.Length) - lastProtectedPos;
+            string protectedSegmentText = protectedText.Substring(lastProtectedPos, protectedLength);
+
+            // Восстанавливаем оригинальный текст сегмента
+            string originalSegmentText = _abbrProcessor.Decode(protectedSegmentText);
+
+            // Вычисляем координаты в ОРИГИНАЛЬНОЙ строке
+            // Длина оригинального текста может отличаться от защищенного
+            int originalLength = originalSegmentText.Length;
+
+            result.Add(new SegmentDTO
+            {
+                Content = originalSegmentText.TrimEnd(),
+                StartPos = lastOriginalPos,
+                EndPos = lastOriginalPos + originalLength
+            });
+
+            lastProtectedPos = match.Index + match.Length;
+            lastOriginalPos += originalLength;
+        }
+
+        // Обработка остатка (если текст не заканчивается разделителем)
+        if (lastProtectedPos < protectedText.Length)
+        {
+            string remainingProtected = protectedText.Substring(lastProtectedPos);
+            string remainingOriginal = _abbrProcessor.Decode(remainingProtected);
+
+            result.Add(new SegmentDTO
+            {
+                Content = remainingOriginal.TrimEnd(),
+                StartPos = lastOriginalPos,
+                EndPos = lastOriginalPos + remainingOriginal.Length
+            });
+        }
+
+        return result;
+    }
+}

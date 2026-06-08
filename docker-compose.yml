@@ -1,0 +1,27 @@
+# layers/services/document-service/docker-compose.yml
+name: ${COMPOSE_PROJECT_NAME:-ziggurat-os}
+services:
+  ds:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: ziggurat-document-service
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - APP_ENV=${APP_ENV}
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Production}
+      - ASPNETCORE_URLS=http://+:8080
+    ports:
+      - ${DS_PORT:-8000}:8080
+    volumes:
+      - ../../volumes/shared-documents:/shared
+    networks:
+      - ziggurat-net
+
+networks:
+  ziggurat-net:
+    name: ziggurat-net
+    driver: bridge
+    external: true
