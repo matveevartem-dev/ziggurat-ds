@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    container_name: ziggurat-document-service
+    container_name: ziggurat-ds
     restart: always
     env_file:
       - .env
