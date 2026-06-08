@@ -1,9 +1,5 @@
 [MODE]
-export
+EXPORT
 
 [ROADMAP]
 docker-compose.yml
-
-[VOLUMES]
-infrastructure_rr = driver:local, type:none, device:${PWD}/shared/rr, o:bind
-shared_documents  = driver:local, type:none, device:${PWD}/volumes/shared-documents, o:bind
