@@ -1,3 +1,42 @@
+# ==============================================================================
+#         [Ziggurat OS] HARDENED TOTAL INGRESS EXCLUSION SPEC (v1505)
+# ==============================================================================
+# Auth: Artem Matveev & Princess (v1505 - Defeated Over-Greedy Runtime Leaks)
+# Path: /.gitignore
+# ==============================================================================
+
+# 1. Глобально блокируем весь локальный мусор разработки и кэши
+*
+**/.env
+**/*.log
+**/.cache/
+**/__pycache__/
+**/*.pyc
+**/vendor/
+**/node_modules/
+
+# 2. РАЗРЕШАЕМ Git заходить во все папки и подпапки (White-Hole Discovery)
+!**/
+
+# 3. Снайперский вайтлист: разрешаем нужные файлы по всему проекту
+!/*
+!**/.env.example
+!**/Dockerfile*
+!**/.gitignore
+!**/docker-compose.yml
+
+# 4. ФРАКТАЛЬHЫЙ OPSEC-ЗАБОР v1505: Жесткое превентивное выжигание runtime-мусора!
+# Сначала наглухо запрещаем Git даже смотреть в сторону папок .runtime и их потрохов
+**/.ziggurat/.runtime/
+**/.ziggurat/.runtime/**
+
+# 5. Снайперский вайтлист полезных метаданных нашей ноды Ziggurat OS
+# Разрешаем только саму папку, файлы манифестов и подпапки ИHФРАСТРУКТУРЫ (.nginx, .bind)
+!**/.ziggurat/
+!**/.ziggurat/.manifest
+!**/.ziggurat/.infrastructure/
+!**/.ziggurat/.infrastructure/**
+
 # These are some examples of commonly ignored file patterns.
 # You should customize this list as applicable to your project.
 # Learn more about .gitignore:
