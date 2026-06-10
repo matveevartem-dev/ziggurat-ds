@@ -1,4 +1,0 @@
-name: ziggurat-ds
-
-include:
-  - path: ../../docker-compose.yml
