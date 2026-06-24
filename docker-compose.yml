@@ -24,5 +24,3 @@ services:
 networks:
   ziggurat-net:
     name: ziggurat-net
-    driver: bridge
-    external: true
