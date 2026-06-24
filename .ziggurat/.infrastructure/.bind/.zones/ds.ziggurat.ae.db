@@ -1,18 +1,16 @@
 $TTL 86400
 ; ==============================================================================
-#  [Ziggurat OS] ISOLATED SUBDOMAIN AUTHORITATIVE SPECIFICATION (v1731)
-#  FQDN Path Target: ds.ziggurat.ae
+;  [Ziggurat OS] ABSOLUTE FQDN ZONE SPECIFICATION (v1783)
+;  FQDN Path Target: ds.ziggurat.ae.
 ; ==============================================================================
 @   IN  SOA ns1.ds.ziggurat.ae. admin.ds.ziggurat.ae. (
-            2026062401 ; Serial (Текущая дата верификации)
+            2026062403 ; Serial
             3600       ; Refresh
             1800       ; Retry
             604800     ; Expire
             86400 )    ; Minimum TTL
 
-; Фиксируем авторитетные сервера имен для изолированного поддомена
 @   IN  NS  ns1.ds.ziggurat.ae.
 
-; Нативно мапим имя ns1 и сам поддомен ds.ziggurat.ae на IP-адрес ингресс-шлюза Nginx
-ns1 IN  A   172.23.0.1
-@   IN  A   172.23.0.1
+ns1.ds.ziggurat.ae. IN  A   172.23.0.1
+ds.ziggurat.ae.     IN  A   172.23.0.1

@@ -1,5 +1,15 @@
+; ==============================================================================
+;  [Ziggurat OS] TERMINAL SERVICE DNA Blueprints SPECIFICATION (v1775)
+;  Path: /layers/services/ds/.ziggurat/.manifest
+; ==============================================================================
+
 [MODE]
-EXPORT
+export = true
 
 [ROADMAP]
-docker-compose.yml
+; Новый каноничный формат: явно объявляем целевой докер-композ файл слоя
+active_layers = docker-compose.yml
+
+[DNS_ZONES]
+; ДИНАМИЧЕСКИЙ L4-ИНЖЕКТ ЗОНЫ: Прописываем точный путь с обязательным учетом папки .ziggurat/
+.ziggurat/.infrastructure/.bind/.zones/ds.ziggurat.ae.db = ds.ziggurat.ae
