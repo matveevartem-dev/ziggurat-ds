@@ -4,7 +4,7 @@ $TTL 86400
 ;  FQDN Path Target: ds.ziggurat.ae.
 ; ==============================================================================
 @   IN  SOA ns1.ds.ziggurat.ae. admin.ds.ziggurat.ae. (
-            2026062403 ; Serial
+            2026062404 ; Serial
             3600       ; Refresh
             1800       ; Retry
             604800     ; Expire
@@ -16,5 +16,5 @@ $TTL 86400
 ;  ДИНАМИЧЕСКИЙ АРХИТЕКТУРНЫЙ ИHЖЕКТ IP v1842
 ;  Используем строго синтаксис точки с запятой для комментариев BIND9!
 ; ==============================================================================
-ns1.ds.ziggurat.ae. IN  A   ${zos_sdn_gateway}
-ds.ziggurat.ae.     IN  A   ${zos_sdn_gateway}
+ns1.ds.ziggurat.ae. IN  A   ${ZOS_SDN_GATEWAY}
+ds.ziggurat.ae.     IN  A   ${ZOS_SDN_GATEWAY}
