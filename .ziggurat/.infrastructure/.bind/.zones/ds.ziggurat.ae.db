@@ -1,6 +1,6 @@
 $TTL 86400
 ; ==============================================================================
-;  [Ziggurat OS] ABSOLUTE FQDN ZONE SPECIFICATION (v1783)
+;  [Ziggurat OS] ABSOLUTE FQDN ZONE SPECIFICATION (v1842)
 ;  FQDN Path Target: ds.ziggurat.ae.
 ; ==============================================================================
 @   IN  SOA ns1.ds.ziggurat.ae. admin.ds.ziggurat.ae. (
@@ -12,5 +12,9 @@ $TTL 86400
 
 @   IN  NS  ns1.ds.ziggurat.ae.
 
-ns1.ds.ziggurat.ae. IN  A   172.23.0.1
-ds.ziggurat.ae.     IN  A   172.23.0.1
+; ==============================================================================
+;  ДИНАМИЧЕСКИЙ АРХИТЕКТУРНЫЙ ИHЖЕКТ IP v1842
+;  Используем строго синтаксис точки с запятой для комментариев BIND9!
+; ==============================================================================
+ns1.ds.ziggurat.ae. IN  A   ${ZOS_SDN_GATEWAY}
+ds.ziggurat.ae.     IN  A   ${ZOS_SDN_GATEWAY}
