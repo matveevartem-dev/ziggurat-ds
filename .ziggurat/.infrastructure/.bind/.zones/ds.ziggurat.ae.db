@@ -16,5 +16,5 @@ $TTL 86400
 ;  ДИНАМИЧЕСКИЙ АРХИТЕКТУРНЫЙ ИHЖЕКТ IP v1842
 ;  Используем строго синтаксис точки с запятой для комментариев BIND9!
 ; ==============================================================================
-ns1.ds.ziggurat.ae. IN  A   ${ZOS_SDN_GATEWAY}
-ds.ziggurat.ae.     IN  A   ${ZOS_SDN_GATEWAY}
+ns1.ds.ziggurat.ae. IN  A   ${zos_sdn_gateway}
+ds.ziggurat.ae.     IN  A   ${zos_sdn_gateway}
