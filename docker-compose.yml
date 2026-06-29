@@ -16,8 +16,8 @@ services:
     ports:
       - ${DS_PORT:-8000}:8080
     volumes:
-      #- ../../../volumes/shared-documents:/shared
       - shared_documents:/shared
+      - ${PWD}/volumes/shared-documents/legacy-volume-uploads:/app/backend/web/uploads
     networks:
       - ziggurat-net
 
