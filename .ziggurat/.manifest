@@ -1,20 +1,21 @@
 ; ==============================================================================
-;  [Ziggurat OS] TERMINAL SERVICE DNA BLUEPRINTS SPECIFICATION (v2338)
+;  [Ziggurat OS] TERMINAL SERVICE DNA BLUEPRINTS SPECIFICATION (v2361)
 ;  Path: layers/services/ds/.ziggurat/.manifest
 ; ==============================================================================
 
 [MODE]
-sections = NETWORK, VOLUMES, DNS_ZONES, SERVICES
+sections = ALL
 scope = all
 
+[NETWORK]
+${TENANT_UUID}-legacy-net = true
+ziggurat-net = driver:bridge,subnet:${ZOS_SDN_SUBNET}/${ZOS_SDN_MASK},gateway:${ZOS_SDN_GATEWAY}
+
 [INGRESS_UPSTREAMS]
-.ziggurat/.infrastructure/.nginx/.upstreams/ds.conf = ds.conf
+.ziggurat/.infrastructure/.nginx/.upstreams/local.conf = ${TENANT_UUID}-legacy-local.conf
 
 [INGRESS_VHOSTS]
-.ziggurat/.infrastructure/.nginx/.filters/ds-server.conf = ds-server.conf
-
-;[DNS_ZONES]
-;.ziggurat/.infrastructure/.bind/.zones/ds.ziggurat.ae.db = ds.ziggurat.ae
+.ziggurat/.infrastructure/.nginx/.filters/server.conf = ${TENANT_UUID}-legacy-server.conf
 
 [SERVICES]
 layers = local
