@@ -1,11 +1,20 @@
 ; ==============================================================================
-;  [Ziggurat OS] TERMINAL SERVICE DNA Blueprints SPECIFICATION (v1775)
-;  Path: /layers/services/ds/.ziggurat/.manifest
+;  [Ziggurat OS] TERMINAL SERVICE DNA BLUEPRINTS SPECIFICATION (v2338)
+;  Path: layers/services/ds/.ziggurat/.manifest
 ; ==============================================================================
 
 [MODE]
-sections = ALL
+sections = NETWORK, VOLUMES, DNS_ZONES, SERVICES
 scope = all
+
+[INGRESS_UPSTREAMS]
+.ziggurat/.infrastructure/.nginx/.upstreams/ds.conf = ds.conf
+
+[INGRESS_VHOSTS]
+.ziggurat/.infrastructure/.nginx/.filters/ds-server.conf = ds-server.conf
+
+[DNS_ZONES]
+.ziggurat/.infrastructure/.bind/.zones/ds.ziggurat.ae.db = ds.ziggurat.ae
 
 [SERVICES]
 layers = local
