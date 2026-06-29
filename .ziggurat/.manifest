@@ -13,8 +13,8 @@ scope = all
 [INGRESS_VHOSTS]
 .ziggurat/.infrastructure/.nginx/.filters/ds-server.conf = ds-server.conf
 
-[DNS_ZONES]
-.ziggurat/.infrastructure/.bind/.zones/ds.ziggurat.ae.db = ds.ziggurat.ae
+;[DNS_ZONES]
+;.ziggurat/.infrastructure/.bind/.zones/ds.ziggurat.ae.db = ds.ziggurat.ae
 
 [SERVICES]
 layers = local
