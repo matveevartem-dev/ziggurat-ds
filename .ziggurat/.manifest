@@ -4,12 +4,8 @@
 ; ==============================================================================
 
 [MODE]
-export = true
+sections = ALL
+scope = all
 
-[ROADMAP]
-; Новый каноничный формат: явно объявляем целевой докер-композ файл слоя
-active_layers = docker-compose.yml
-
-[DNS_ZONES]
-; ДИНАМИЧЕСКИЙ L4-ИНЖЕКТ ЗОНЫ: Прописываем точный путь с обязательным учетом папки .ziggurat/
-.ziggurat/.infrastructure/.bind/.zones/ds.ziggurat.ae.db = ds.ziggurat.ae
+[SERVICES]
+layers = local

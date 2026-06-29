@@ -3,8 +3,8 @@ name: ${COMPOSE_PROJECT_NAME:-ziggurat-os}
 services:
   ds:
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ${PWD}/layers/services/ds/Dockerfile
+      context: ${PWD}/layers/services/ds
     container_name: ziggurat-ds
     restart: always
     env_file:
@@ -16,7 +16,7 @@ services:
     ports:
       - ${DS_PORT:-8000}:8080
     volumes:
-      - shared_documents:/shared
+      - ${PWD}/volumes/shared-documents:/shared
       - ${PWD}/volumes/shared-documents/legacy-volume-uploads:/app/backend/web/uploads
     networks:
       - ziggurat-net
