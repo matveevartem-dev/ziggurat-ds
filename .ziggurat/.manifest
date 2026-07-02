@@ -4,8 +4,9 @@
 ; ==============================================================================
 
 [MODE]
-sections = ALL
+sections = SERVICES
 scope = all
+terminal = true
 
 [NETWORK]
 ${TENANT_UUID}-legacy-net = true
